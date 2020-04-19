@@ -1,8 +1,12 @@
 const express = require("express");
 const path = require("path");
 const PORT = process.env.PORT || 3001;
-const app = express();
 const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
+
+const app = express();
+
+app.use(bodyParser.json());
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -14,16 +18,22 @@ if (process.env.NODE_ENV === "production") {
 
 // Send every request to the React app
 // Define any API routes before this runs
-app.get("*", function(req, res) {
+app.get("*", function (req, res) {
   res.sendFile(path.join(__dirname, "./client/build/index.html"));
 });
 
-mongoose.connect(
-  process.env.MONGODB_URI ||
-    "mongodb://user:codingbootcamp1@ds031978.mlab.com:31978/heroku_ngv7n3dm",
-  { useNewUrlParser: true }
-);
+mongoose
+  .connect(
+    process.env.MONGODB_URI ||
+      "mongodb://user:codingbootcamp1@ds031978.mlab.com:31978/heroku_ngv7n3dm",
+    { useNewUrlParser: true, useUnifiedTopology: true }
+  )
+  .then(() =>
+    console
+      .log("MongoDB connected successfully!")
+      .catch((err) => console.log(err))
+  );
 
-app.listen(PORT, function() {
-  console.log(`🌎 ==> API server now on port ${PORT}!`);
+app.listen(PORT, function () {
+  console.log(`Server listening on http://localhost:${PORT}!`);
 });
