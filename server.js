@@ -4,6 +4,8 @@ const PORT = process.env.PORT || 3001;
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 
+const items = require("./routes/api/items");
+
 const app = express();
 
 app.use(bodyParser.json());
@@ -18,9 +20,9 @@ if (process.env.NODE_ENV === "production") {
 
 // Send every request to the React app
 // Define any API routes before this runs
-app.get("*", function (req, res) {
-  res.sendFile(path.join(__dirname, "./client/build/index.html"));
-});
+// app.get("*", function (req, res) {
+//   res.sendFile(path.join(__dirname, "./client/build/index.html"));
+// });
 
 mongoose
   .connect(
@@ -28,11 +30,10 @@ mongoose
       "mongodb://user:codingbootcamp1@ds031978.mlab.com:31978/heroku_ngv7n3dm",
     { useNewUrlParser: true, useUnifiedTopology: true }
   )
-  .then(() =>
-    console
-      .log("MongoDB connected successfully!")
-      .catch((err) => console.log(err))
-  );
+  .then(() => console.log("MongoDB connected successfully!"))
+  .catch((err) => console.log(err));
+
+app.use("/api/items", items);
 
 app.listen(PORT, function () {
   console.log(`Server listening on http://localhost:${PORT}!`);
