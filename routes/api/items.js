@@ -14,6 +14,7 @@ Router.post("/", (req, res) => {
     name: req.body.name,
     count: req.body.count,
     threshold: req.body.threshold,
+    sold: req.body.sold,
   });
 
   newItem.save().then((item) => res.json(item));
