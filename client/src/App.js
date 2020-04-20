@@ -7,6 +7,7 @@ import Signup from "./pages/Signup";
 import Inventory from "./pages/Inventory";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Navbar from "./components/Navbar/Navbar";
+import Contact from "./pages/Contact";
 // import Footer from "./components/Footer";
 
 class App extends Component {
@@ -19,6 +20,7 @@ class App extends Component {
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={Signup} />
           <Route exact path="/inventory" component={Inventory} />
+          <Route exact path="/contact" component={Contact} />
         </div>
       </Router>
     );
