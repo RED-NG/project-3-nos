@@ -1,33 +1,18 @@
 import React, { Component } from "react";
 import { Container, ListGroup, ListGroupItem, Button } from "reactstrap";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
-import uuid from "uuid/v1";
+import { v4 as uuidv4 } from "uuid";
+import { connect } from "react-redux";
+import { getItems } from "../actions/itemActions";
+import PropTypes from "prop-types";
 
 class Inventory extends Component {
-  state = {
-    items: [
-      { id: uuid(), name: "Coors Light", count: 100, threshold: 10, sold: 86 },
-      { id: uuid(), name: "Budweister", count: 100, threshold: 10, sold: 80 },
-      { id: uuid(), name: "Stella Artois", count: 75, threshold: 10, sold: 34 },
-      {
-        id: uuid(),
-        name: "Alexander Keiths",
-        count: 50,
-        threshold: 10,
-        sold: 12,
-      },
-      {
-        id: uuid(),
-        name: "Belgian Moon",
-        count: 50,
-        threshold: 10,
-        sold: 20,
-      },
-    ],
-  };
+  componentDidMount() {
+    this.props.getItems();
+  }
 
   render() {
-    const { items } = this.state;
+    const { items } = this.props.item;
     return (
       <Container>
         <Button
@@ -44,7 +29,7 @@ class Inventory extends Component {
               this.setState((state) => ({
                 items: [
                   ...state.items,
-                  { id: uuid(), name, count, threshold, sold },
+                  { id: uuidv4(), name, count, threshold, sold },
                 ],
               }));
             }
@@ -81,6 +66,13 @@ class Inventory extends Component {
   }
 }
 
-export default Inventory;
+Inventory.propTypes = {
+  getItems: PropTypes.func.isRequired,
+  item: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = (state) => ({ item: state.item });
+
+export default connect(mapStateToProps, { getItems })(Inventory);
 
 //name, count, threshold, sold
