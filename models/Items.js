@@ -9,4 +9,9 @@ const ItemSchema = new Schema({
   date: { type: Date, default: Date.now },
 });
 
-module.exports = Item = mongoose.model("item", ItemSchema);
+const ItemsSold = new Schema({
+  sold: { type: Number, required: true },
+  date: { type: Date, default: Date.now },
+});
+
+module.exports = Item = mongoose.model("item", { ItemSchema, ItemsSold });

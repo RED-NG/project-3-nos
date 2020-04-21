@@ -7,9 +7,10 @@ import Signup from "./pages/Signup";
 import Inventory from "./pages/Inventory";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Navbar from "./components/Navbar/Navbar";
-import Contact from "./pages/Contact";
 import { Provider } from "react-redux";
 import store from "./store";
+import Projection from "./pages/Projection";
+
 // import Footer from "./components/Footer";
 
 class App extends Component {
@@ -23,7 +24,7 @@ class App extends Component {
             <Route exact path="/login" component={Login} />
             <Route exact path="/signup" component={Signup} />
             <Route exact path="/inventory" component={Inventory} />
-            <Route exact path="/contact" component={Contact} />
+            <Route exact path="/projection" component={Projection} />
           </div>
         </Router>
       </Provider>

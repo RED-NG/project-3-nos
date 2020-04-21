@@ -32,7 +32,7 @@ class Navbar1 extends Component {
                   <NavLink href="/inventory">Inventory</NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink href="/contact">Contact</NavLink>
+                  <NavLink href="/projection">Projection</NavLink>
                 </NavItem>
                 <NavItem>
                   <NavLink href="/signup">Sign up</NavLink>
