@@ -75,15 +75,23 @@ class AddDay extends Component {
                   placeholder="How many units have you sold today?"
                   onChange={this.onChange}
                   className="mb-1"
-                ></Input>
+                ></Input>{" "}
                 <Input
+                  type="date"
+                  name="date"
+                  id="date"
+                  placeholder="Enter the date these sales occurred"
+                  onChange={this.onChange}
+                  className="mb-1"
+                />
+                {/* <Input
                   type="text"
                   name="date"
                   id="date"
                   placeholder="Enter today's date"
                   onChange={this.onChange}
                   className="mb-1"
-                ></Input>
+                ></Input> */}
                 <Button color="danger" block>
                   Submit day
                 </Button>
