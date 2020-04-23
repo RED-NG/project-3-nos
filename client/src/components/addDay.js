@@ -10,14 +10,14 @@ import {
   Input,
 } from "reactstrap";
 import { connect } from "react-redux";
-import { addItem } from "../actions/itemActions";
+import { addDay } from "../actions/itemActions";
 
-class AddForm extends Component {
+class AddDay extends Component {
   state = {
     modal: false,
     name: "",
-    count: 0,
-    threshold: 0,
+    sold: 0,
+    date: "",
   };
 
   toggle = () => {
@@ -26,23 +26,23 @@ class AddForm extends Component {
 
   onChange = (e) => {
     this.setState({
-      [e.target.id]: e.target.value,
+      [e.target.name]: e.target.value,
     });
   };
 
   onSubmit = (e) => {
     e.preventDefault();
 
-    const createdItem = {
+    const createdDay = {
       name: this.state.name,
-      count: this.state.count,
-      threshold: this.state.threshold,
+      sold: this.state.sold,
+      date: this.state.date,
     };
 
-    console.log(`created Item on submit`, createdItem);
-    console.log(`created Item on submit`, JSON.stringify(createdItem));
+    console.log(`created Item on submit`, createdDay);
+    console.log(`created Item on submit`, JSON.stringify(createdDay));
 
-    this.props.addItem(createdItem);
+    this.props.addDay(createdDay);
     this.toggle();
   };
 
@@ -50,16 +50,16 @@ class AddForm extends Component {
     return (
       <div>
         <Button color="danger" onClick={this.toggle} className="mb-1">
-          Add a item
+          Add a day
         </Button>
         <Modal isOpen={this.state.modal} toggle={this.toggle}>
           <ModalHeader toggle={this.toggle}>
-            Add an item into your inventory
+            Add the day's sales numbers
           </ModalHeader>
           <ModalBody>
             <Form onSubmit={this.onSubmit}>
               <FormGroup>
-                <Label for="item">Product to add:</Label>
+                <Label for="item">Day's sales figures to add:</Label>
                 <Input
                   type="text"
                   name="name"
@@ -70,22 +70,22 @@ class AddForm extends Component {
                 ></Input>
                 <Input
                   type="text"
-                  name="count"
-                  id="count"
-                  placeholder="How many units do you have?"
+                  name="sold"
+                  id="sold"
+                  placeholder="How many units have you sold today?"
                   onChange={this.onChange}
                   className="mb-1"
                 ></Input>
                 <Input
                   type="text"
-                  name="threshold"
-                  id="threshold"
-                  placeholder="How many before you need to buy more?"
+                  name="date"
+                  id="date"
+                  placeholder="Enter today's date"
                   onChange={this.onChange}
                   className="mb-1"
                 ></Input>
                 <Button color="danger" block>
-                  Submit item
+                  Submit day
                 </Button>
               </FormGroup>
             </Form>
@@ -95,6 +95,6 @@ class AddForm extends Component {
     );
   }
 }
-const mapStateToProps = (state) => ({ item: state.item });
+const mapStateToProps = (state) => ({ day: state.day });
 
-export default connect(mapStateToProps, { addItem })(AddForm);
+export default connect(mapStateToProps, { addDay })(AddDay);
