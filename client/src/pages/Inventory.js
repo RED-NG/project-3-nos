@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Container, ListGroup, ListGroupItem, Button } from "reactstrap";
+import { Container, Button, Table } from "reactstrap";
 import { connect } from "react-redux";
 import {
   getItems,
@@ -33,38 +33,66 @@ class Inventory extends Component {
     return (
       <Container>
         <AddForm />
-        <ListGroup>
-          {items.map(({ _id, name, count, threshold }) => (
-            <ListGroupItem className="float-left" key={_id}>
-              Item name: {name}, Inventory Count: {count}, Threshold stock
-              limit: {threshold}
-              <Button
-                className="removeItemBtn float-right"
-                color="danger"
-                size="sm mr-1"
-                onClick={this.onDelete.bind(this, _id)}
-              >
-                &times;
-              </Button>
-            </ListGroupItem>
-          ))}
-        </ListGroup>
+        <Table dark>
+          <thead>
+            <tr>
+              <th>Product Name</th>
+              <th>Total Inventory Count</th>
+              <th>Threshold</th>
+              <th>Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            {items.map(({ _id, name, count, threshold }) => (
+              <tr key={_id}>
+                <td className="float-center">{name}</td>
+                <td className="float-center">{count}</td>
+                <td className="float-center">{threshold}</td>
+                <td>
+                  <Button
+                    className="removeItemBtn float-center"
+                    color="danger"
+                    size="sm mr-1"
+                    onClick={this.onDelete.bind(this, _id)}
+                  >
+                    &times;
+                  </Button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+
         <AddDay />
-        <ListGroup>
-          {days.map(({ _id, name, sold, date }) => (
-            <ListGroupItem className="float-left" key={_id}>
-              Date: {date} - Item name: {name}, Units sold today: {sold}
-              <Button
-                className="removeItemBtn float-right"
-                color="danger"
-                size="sm mr-1"
-                onClick={this.dayDelete.bind(this, _id)}
-              >
-                &times;
-              </Button>
-            </ListGroupItem>
-          ))}
-        </ListGroup>
+        <Table dark>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Product name</th>
+              <th>Units sold</th>
+              <th>Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            {days.map(({ _id, name, sold, date }) => (
+              <tr key={_id}>
+                <td className="float-center">{date}</td>
+                <td className="float-center">{name}</td>
+                <td className="float-center">{sold}</td>
+                <td>
+                  <Button
+                    className="removeItemBtn float-center"
+                    color="danger"
+                    size="sm mr-1"
+                    onClick={this.onDelete.bind(this, _id)}
+                  >
+                    &times;
+                  </Button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
       </Container>
     );
   }
@@ -85,5 +113,3 @@ export default connect(mapStateToProps, {
   getDays,
   deleteDay,
 })(Inventory);
-
-//name, count, threshold, sold

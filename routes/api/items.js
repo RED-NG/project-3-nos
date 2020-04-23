@@ -19,6 +19,7 @@ Router.post("/", (req, res) => {
     threshold: req.body.threshold,
   });
 
+  //Created item is saved
   newItem.save((err, item) => {
     console.log(item);
     console.log(`This is the err`, err);
@@ -26,6 +27,7 @@ Router.post("/", (req, res) => {
   });
 });
 
+//Delete item based on id
 Router.delete("/:id", (req, res) => {
   Item.findById(req.params.id)
     .then((item) => item.remove().then(() => res.json({ success: true })))
@@ -47,6 +49,7 @@ Router.post("/day", (req, res) => {
     date: req.body.date,
   });
 
+  //Created day is saved
   newDay.save((err, day) => {
     console.log(day);
     console.log(`This is the err`, err);
@@ -54,6 +57,7 @@ Router.post("/day", (req, res) => {
   });
 });
 
+//Delete day based on id
 Router.delete("/day/:id", (req, res) => {
   Day.findById(req.params.id)
     .then((day) => day.remove().then(() => res.json({ success: true })))
