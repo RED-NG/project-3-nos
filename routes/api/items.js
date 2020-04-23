@@ -54,7 +54,7 @@ Router.post("/day", (req, res) => {
   });
 });
 
-Router.delete("day/:id", (req, res) => {
+Router.delete("/day/:id", (req, res) => {
   Day.findById(req.params.id)
     .then((day) => day.remove().then(() => res.json({ success: true })))
     .catch((err) => res.status(404).json({ success: false }));

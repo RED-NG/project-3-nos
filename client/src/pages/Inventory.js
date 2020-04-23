@@ -19,6 +19,9 @@ class Inventory extends Component {
 
   onDelete = (id) => {
     this.props.deleteItems(id);
+  };
+
+  dayDelete = (id) => {
     this.props.deleteDay(id);
   };
 
@@ -55,7 +58,7 @@ class Inventory extends Component {
                 className="removeItemBtn float-right"
                 color="danger"
                 size="sm mr-1"
-                onClick={this.onDelete.bind(this, _id)}
+                onClick={this.dayDelete.bind(this, _id)}
               >
                 &times;
               </Button>

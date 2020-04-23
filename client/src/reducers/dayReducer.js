@@ -19,7 +19,7 @@ export default function (state = initialState, action) {
     case DELETE_DAY:
       return {
         ...state,
-        items: state.days.filter((day) => day._id !== action.payload),
+        days: state.days.filter((day) => day._id !== action.payload),
       };
 
     case ITEMS_LOADING:
