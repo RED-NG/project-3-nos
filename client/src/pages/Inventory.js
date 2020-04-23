@@ -84,7 +84,7 @@ class Inventory extends Component {
                     className="removeItemBtn float-center"
                     color="danger"
                     size="sm mr-1"
-                    onClick={this.onDelete.bind(this, _id)}
+                    onClick={this.dayDelete.bind(this, _id)}
                   >
                     &times;
                   </Button>
