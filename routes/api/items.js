@@ -1,7 +1,7 @@
 const express = require("express");
 const Router = express.Router();
 
-const Item = require("../../models/Items.js");
+const Item = require("../../models/Items");
 
 //Get all items
 Router.get("/", (req, res) => {
@@ -10,6 +10,8 @@ Router.get("/", (req, res) => {
 
 //Create a new item
 Router.post("/", (req, res) => {
+
+  console.log(`api post route`, JSON.stringify(req.body));
   const newItem = new Item({
     name: req.body.name,
     count: req.body.count,
@@ -17,7 +19,11 @@ Router.post("/", (req, res) => {
     sold: req.body.sold,
   });
 
-  newItem.save().then((item) => res.json(item));
+  newItem.save((err, item)=>{
+    console.log(item);
+    console.log(`This is the err`,  err);
+    res.json(item);
+  });
 });
 
 Router.delete("/:id", (req, res) => {

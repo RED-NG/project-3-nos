@@ -11,7 +11,6 @@ import {
 } from "reactstrap";
 import { connect } from "react-redux";
 import { addItem } from "../actions/itemActions";
-import { v4 as uuidv4 } from "uuid";
 
 class AddForm extends Component {
   state = {
@@ -29,9 +28,6 @@ class AddForm extends Component {
   onChange = (e) => {
     this.setState({
       [e.target.name]: e.target.value,
-      [e.target.count]: e.target.value,
-      [e.target.threshold]: e.target.value,
-      [e.target.sold]: e.target.value,
     });
   };
 
@@ -39,12 +35,14 @@ class AddForm extends Component {
     e.preventDefault();
 
     const createdItem = {
-      id: uuidv4(),
       name: this.state.name,
       count: this.state.count,
       threshold: this.state.threshold,
       sold: this.state.sold,
     };
+
+    console.log(`created Item on submit`, createdItem);
+    console.log(`created Item on submit`, JSON.stringify(createdItem));
 
     this.props.addItem(createdItem);
     this.toggle();
@@ -67,7 +65,7 @@ class AddForm extends Component {
                 <Input
                   type="text"
                   name="name"
-                  id="item"
+                  id="name"
                   placeholder="Name of product"
                   onChange={this.onChange}
                   className="mb-1"
@@ -75,8 +73,8 @@ class AddForm extends Component {
                 <Input
                   type="text"
                   name="count"
-                  id="itemcount"
-                  placeholder="How many do you have?"
+                  id="count"
+                  placeholder="How many units do you have?"
                   onChange={this.onChange}
                   className="mb-1"
                 ></Input>

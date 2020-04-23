@@ -10,25 +10,26 @@ class Inventory extends Component {
     this.props.getItems();
   }
 
-  onDeleteClick = (id) => {
+  onDelete = (id) => {
     this.props.deleteItems(id);
   };
 
   render() {
     const { items } = this.props.item;
+    console.log({ items });
     return (
       <Container>
         <AddForm />
         <ListGroup>
-          {items.map(({ id, name, count, threshold, sold }) => (
-            <ListGroupItem className="float-left">
+          {items.map(({ _id, name, count, threshold, sold }) => (
+            <ListGroupItem className="float-left" key={_id}>
               Item name: {name}, Inventory Count: {count}, Threshold stock
               limit: {threshold}, Units sold: {sold}{" "}
               <Button
                 className="removeItemBtn float-right"
                 color="danger"
                 size="sm mr-1"
-                onClick={this.onDeleteClick.bind(this, id)}
+                onClick={this.onDelete.bind(this, _id)}
               >
                 &times;
               </Button>

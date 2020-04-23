@@ -21,7 +21,7 @@ class Navbar1 extends Component {
       <div>
         <Navbar color="warning" dark expand="sm" className="mb-5">
           <Container>
-            <NavbarBrand href="/">FEM</NavbarBrand>
+            <NavbarBrand href="/">NoS</NavbarBrand>
             <NavbarToggler onClick={this.toggle} />
             <Collapse isOpen={this.state.isOpen} navbar>
               <Nav className="ml-auto" navbar>
