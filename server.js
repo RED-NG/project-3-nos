@@ -2,15 +2,17 @@ const express = require("express");
 const path = require("path");
 const PORT = process.env.PORT || 3001;
 const mongoose = require("mongoose");
+const config = require("config");
 
 const app = express();
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-const db = require("./config/keys").mongoURI;
+const db = config.get("mongoURI");
 
 app.use("/api/items", require("./routes/api/items"));
+app.use("/api/auth", require("./routes/api/auth"));
 app.use("/api/users", require("./routes/api/users"));
 
 // Send every request to the React app
