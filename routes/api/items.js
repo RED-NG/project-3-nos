@@ -1,5 +1,6 @@
 const express = require("express");
 const Router = express.Router();
+const isAuthenticated = require("../../middleware/auth");
 
 const Item = require("../../models/Items");
 const Day = require("../../models/ItemsSold");
@@ -11,7 +12,7 @@ Router.get("/", (req, res) => {
 });
 
 //Create a new item
-Router.post("/", (req, res) => {
+Router.post("/", isAuthenticated, (req, res) => {
   console.log(`api post route`, JSON.stringify(req.body));
   const newItem = new Item({
     name: req.body.name,
@@ -28,7 +29,7 @@ Router.post("/", (req, res) => {
 });
 
 //Delete item based on id
-Router.delete("/:id", (req, res) => {
+Router.delete("/:id", isAuthenticated, (req, res) => {
   Item.findById(req.params.id)
     .then((item) => item.remove().then(() => res.json({ success: true })))
     .catch((err) => res.status(404).json({ success: false }));
@@ -41,7 +42,7 @@ Router.get("/day", (req, res) => {
 });
 
 //Create new day
-Router.post("/day", (req, res) => {
+Router.post("/day", isAuthenticated, (req, res) => {
   console.log(`api post route`, JSON.stringify(req.body));
   const newDay = new Day({
     name: req.body.name,
@@ -58,7 +59,7 @@ Router.post("/day", (req, res) => {
 });
 
 //Delete day based on id
-Router.delete("/day/:id", (req, res) => {
+Router.delete("/day/:id", isAuthenticated, (req, res) => {
   Day.findById(req.params.id)
     .then((day) => day.remove().then(() => res.json({ success: true })))
     .catch((err) => res.status(404).json({ success: false }));
