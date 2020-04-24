@@ -2,20 +2,16 @@ const express = require("express");
 const path = require("path");
 const PORT = process.env.PORT || 3001;
 const mongoose = require("mongoose");
-const bodyParser = require("body-parser");
-
-const items = require("./routes/api/items");
 
 const app = express();
-
-app.use(bodyParser.json());
-
-const db = require("./config/keys").mongoURI;
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-app.use("/api/items", items);
+const db = require("./config/keys").mongoURI;
+
+app.use("/api/items", require("./routes/api/items"));
+app.use("/api/users", require("./routes/api/users"));
 
 // Send every request to the React app
 // Define any API routes before this runs
@@ -31,6 +27,7 @@ mongoose
   .connect(process.env.MONGODB_URI || db, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
+    useCreateIndex: true,
   })
   .then(() => console.log("MongoDB connected successfully!"))
   .catch((err) => console.log(err));

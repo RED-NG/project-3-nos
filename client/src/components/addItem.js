@@ -50,7 +50,7 @@ class AddForm extends Component {
     return (
       <div>
         <Button color="danger" onClick={this.toggle} className="mb-1">
-          Add a item
+          Add an item
         </Button>
         <Modal isOpen={this.state.modal} toggle={this.toggle}>
           <ModalHeader toggle={this.toggle}>

@@ -10,6 +10,7 @@ import {
 import PropTypes from "prop-types";
 import AddForm from "../components/addItem";
 import AddDay from "../components/addDay";
+import "./Inventory.css";
 
 class Inventory extends Component {
   componentDidMount() {
@@ -28,8 +29,13 @@ class Inventory extends Component {
   render() {
     const { items } = this.props.item;
     const { days } = this.props.day;
-    console.log({ items });
-    console.log({ days });
+
+    const totals = Object.create(null);
+    days.forEach(({ name, sold }) => {
+      const currentTotal = totals[name] || 0;
+      totals[name] = currentTotal + sold;
+    });
+
     return (
       <Container>
         <AddForm />
@@ -43,23 +49,38 @@ class Inventory extends Component {
             </tr>
           </thead>
           <tbody>
-            {items.map(({ _id, name, count, threshold }) => (
-              <tr key={_id}>
-                <td className="float-center">{name}</td>
-                <td className="float-center">{count}</td>
-                <td className="float-center">{threshold}</td>
-                <td>
-                  <Button
-                    className="removeItemBtn float-center"
-                    color="danger"
-                    size="sm mr-1"
-                    onClick={this.onDelete.bind(this, _id)}
-                  >
-                    &times;
-                  </Button>
-                </td>
-              </tr>
-            ))}
+            {items.map(({ _id, name, count, threshold }) => {
+              var totalInventory = count;
+
+              if (name in totals) {
+                totalInventory -= totals[name];
+              }
+
+              let stockStatus;
+              if (totalInventory <= threshold) {
+                stockStatus = "low-stock";
+              } else {
+                stockStatus = "in-stock";
+              }
+
+              return (
+                <tr key={_id} className={stockStatus}>
+                  <td className="float-center">{name}</td>
+                  <td className="float-center">{totalInventory}</td>
+                  <td className="float-center">{threshold}</td>
+                  <td>
+                    <Button
+                      className="removeItemBtn float-center"
+                      color="danger"
+                      size="sm mr-1"
+                      onClick={this.onDelete.bind(this, _id)}
+                    >
+                      &times;
+                    </Button>
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </Table>
 
