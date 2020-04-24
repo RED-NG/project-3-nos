@@ -11,7 +11,7 @@ Router.get("/", (req, res) => {
   Item.find().then((items) => res.json(items));
 });
 
-//Create a new item
+//Create a new item but only if authenticated
 Router.post("/", isAuthenticated, (req, res) => {
   console.log(`api post route`, JSON.stringify(req.body));
   const newItem = new Item({
@@ -28,7 +28,7 @@ Router.post("/", isAuthenticated, (req, res) => {
   });
 });
 
-//Delete item based on id
+//Delete item based on id but only if authenticated
 Router.delete("/:id", isAuthenticated, (req, res) => {
   Item.findById(req.params.id)
     .then((item) => item.remove().then(() => res.json({ success: true })))
@@ -41,7 +41,7 @@ Router.get("/day", (req, res) => {
   Day.find().then((day) => res.json(day));
 });
 
-//Create new day
+//Create new day but only if authenticated
 Router.post("/day", isAuthenticated, (req, res) => {
   console.log(`api post route`, JSON.stringify(req.body));
   const newDay = new Day({
@@ -58,7 +58,7 @@ Router.post("/day", isAuthenticated, (req, res) => {
   });
 });
 
-//Delete day based on id
+//Delete day based on id but only if authenticated
 Router.delete("/day/:id", isAuthenticated, (req, res) => {
   Day.findById(req.params.id)
     .then((day) => day.remove().then(() => res.json({ success: true })))
