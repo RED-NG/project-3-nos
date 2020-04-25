@@ -19,10 +19,31 @@ class AddDay extends Component {
     sold: 0,
     date: "",
     profit: 0,
+    modalData: {},
+  };
+
+  saleModal = {
+    header: "Add a sale you made",
+    nameLabel: "Sales figures to add:",
+    soldPurchase: "How many units have you sold today?",
+    date: "Enter the date this sales occurred",
+    profit: "Enter the amount earned from this sale in dollars",
+  };
+
+  purchaseModal = {
+    header: "Log a purchase you made",
+    nameLabel: "Purchases to add",
+    soldPurchase: "How many units have you purchased?",
+    date: "Enter the date this purchase occurred",
+    profit: "Enter the amount spent from this purchase in dollars",
   };
 
   toggle = () => {
     this.setState({ modal: !this.state.modal });
+  };
+
+  showModal = (modalData) => {
+    this.setState({ modalData }, this.toggle);
   };
 
   onChange = (e) => {
@@ -34,12 +55,22 @@ class AddDay extends Component {
   onSubmit = (e) => {
     e.preventDefault();
 
-    const createdDay = {
-      name: this.state.name,
-      sold: this.state.sold,
-      date: this.state.date,
-      profit: this.state.profit,
-    };
+    let createdDay;
+    if (this.state.modalData === this.saleModal) {
+      createdDay = {
+        name: this.state.name,
+        sold: -this.state.sold,
+        date: this.state.date,
+        profit: this.state.profit,
+      };
+    } else if (this.state.modalData === this.purchaseModal) {
+      createdDay = {
+        name: this.state.name,
+        sold: this.state.sold,
+        date: this.state.date,
+        profit: -this.state.profit,
+      };
+    }
 
     console.log(`created Item on submit`, createdDay);
     console.log(`created Item on submit`, JSON.stringify(createdDay));
@@ -51,17 +82,28 @@ class AddDay extends Component {
   render() {
     return (
       <div>
-        <Button color="danger" onClick={this.toggle} className="mb-1">
-          Add a day
+        <Button
+          color="danger"
+          onClick={() => this.showModal(this.saleModal)}
+          className="mb-1"
+        >
+          Record a sale
+        </Button>
+        <Button
+          color="dark"
+          onClick={() => this.showModal(this.purchaseModal)}
+          className="mb-1 ml-3"
+        >
+          Record a purchase
         </Button>
         <Modal isOpen={this.state.modal} toggle={this.toggle}>
           <ModalHeader toggle={this.toggle}>
-            Add the day's sales numbers
+            {this.state.modalData.header}
           </ModalHeader>
           <ModalBody>
             <Form onSubmit={this.onSubmit}>
               <FormGroup>
-                <Label for="item">Day's sales figures to add:</Label>
+                <Label for="item">{this.state.modalData.nameLabel}</Label>
                 <Input
                   type="text"
                   name="name"
@@ -74,7 +116,7 @@ class AddDay extends Component {
                   type="text"
                   name="sold"
                   id="sold"
-                  placeholder="How many units have you sold today?"
+                  placeholder={this.state.modalData.soldPurchase}
                   onChange={this.onChange}
                   className="mb-1"
                 ></Input>{" "}
@@ -82,7 +124,7 @@ class AddDay extends Component {
                   type="date"
                   name="date"
                   id="date"
-                  placeholder="Enter the date these sales occurred"
+                  placeholder={this.state.modalData.date}
                   onChange={this.onChange}
                   className="mb-1"
                 />
@@ -90,7 +132,7 @@ class AddDay extends Component {
                   type="text"
                   name="profit"
                   id="profit"
-                  placeholder="Enter the amount earned from this sale in dollars"
+                  placeholder={this.state.modalData.profit}
                   onChange={this.onChange}
                   className="mb-1"
                 ></Input>
