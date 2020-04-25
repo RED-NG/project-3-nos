@@ -25,7 +25,7 @@ class Inventory extends Component {
   };
 
   render() {
-    const { items } = this.props.item;
+    // const { items } = this.props.item;
     const { days } = this.props.day;
 
     const totals = Object.create(null);
@@ -44,8 +44,8 @@ class Inventory extends Component {
             <tr>
               <th>Date</th>
               <th>Product name</th>
-              <th>Units sold</th>
-              <th>Profit</th>
+              <th>Units bought/sold</th>
+              <th>Profit/Cost</th>
               <th>Delete</th>
             </tr>
           </thead>

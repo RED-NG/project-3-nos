@@ -11,15 +11,13 @@ import {
   NavLink,
 } from "reactstrap";
 import { connect } from "react-redux";
-import { signupUser } from "../../actions/authActions";
+import { loginUser } from "../../actions/authActions";
 import { clearAllErr } from "../../actions/errorActions";
 import PropTypes from "prop-types";
 
-class SignUpForm extends Component {
+class LoginForm extends Component {
   state = {
     modal: false,
-    firstname: "",
-    lastname: "",
     email: "",
     password: "",
     msg: null,
@@ -28,14 +26,14 @@ class SignUpForm extends Component {
   static propTypes = {
     isAuthenticated: PropTypes.bool,
     error: PropTypes.object.isRequired,
-    signupUser: PropTypes.func.isRequired,
+    loginUser: PropTypes.func.isRequired,
     clearAllErr: PropTypes.func.isRequired,
   };
 
   componentDidUpdate(prevProps) {
     const { error, isAuthenticated } = this.props;
     if (error !== prevProps.error) {
-      if (error.id === "SIGNUP_FAILED") {
+      if (error.id === "LOGIN_FAILED") {
         this.setState({ msg: error.msg.msg });
       } else {
         this.setState({ msg: null });
@@ -62,44 +60,27 @@ class SignUpForm extends Component {
   onSubmit = (e) => {
     e.preventDefault();
 
-    const { firstname, lastname, email, password } = this.state;
+    const { email, password } = this.state;
+    const user = { email, password };
 
-    const createdUser = { firstname, lastname, email, password };
-
-    this.props.signupUser(createdUser);
+    this.props.loginUser(user);
   };
 
   render() {
     return (
       <div>
         <NavLink onClick={this.toggle} href="#">
-          Register
+          Login
         </NavLink>
 
         <Modal isOpen={this.state.modal} toggle={this.toggle}>
-          <ModalHeader toggle={this.toggle}>Sign up for an account</ModalHeader>
+          <ModalHeader toggle={this.toggle}>Login to your account</ModalHeader>
           <ModalBody>
             {this.state.msg ? (
               <Alert color="dark">{this.state.msg}</Alert>
             ) : null}
             <Form onSubmit={this.onSubmit}>
               <FormGroup>
-                <Input
-                  type="text"
-                  name="firstname"
-                  id="firstname"
-                  placeholder="Enter your first name"
-                  onChange={this.onChange}
-                  className="mb-1"
-                ></Input>
-                <Input
-                  type="text"
-                  name="lastname"
-                  id="lastname"
-                  placeholder="Enter your last name"
-                  onChange={this.onChange}
-                  className="mb-1"
-                ></Input>
                 <Input
                   type="text"
                   name="email"
@@ -117,7 +98,7 @@ class SignUpForm extends Component {
                   className="mb-1"
                 ></Input>
                 <Button color="danger" block>
-                  Sign up
+                  Login
                 </Button>
               </FormGroup>
             </Form>
@@ -132,6 +113,4 @@ const mapStateToProps = (state) => ({
   error: state.error,
 });
 
-export default connect(mapStateToProps, { signupUser, clearAllErr })(
-  SignUpForm
-);
+export default connect(mapStateToProps, { loginUser, clearAllErr })(LoginForm);

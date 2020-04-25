@@ -1,5 +1,5 @@
 import axios from "axios";
-import { showAllErr, clearAllErr } from "./errorActions";
+import { showAllErr } from "./errorActions";
 import {
   AUTHENTICATION_ERROR,
   USER_LOADING,
@@ -49,6 +49,22 @@ export const signupUser = ({ firstname, lastname, email, password }) => (
         showAllErr(err.response.data, err.response.status, "SIGNUP_FAILED")
       );
       dispatch({ type: SIGNUP_FAILED });
+    });
+};
+
+export const loginUser = ({ email, password }) => (dispatch) => {
+  const config = { headers: { "Content-Type": "application/json" } };
+
+  const body = JSON.stringify({ email, password });
+
+  axios
+    .post("/api/auth", body, config)
+    .then((res) => dispatch({ type: LOGIN_SUCCESSFUL, payload: res.data }))
+    .catch((err) => {
+      dispatch(
+        showAllErr(err.response.data, err.response.status, "LOGIN_FAILED")
+      );
+      dispatch({ type: LOGIN_FAILED });
     });
 };
 
