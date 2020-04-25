@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import SignUpForm from "../auth/SignUpForm";
+import Logout from "../auth/Logout";
 import {
   Collapse,
   Navbar,
@@ -35,10 +37,13 @@ class Navbar1 extends Component {
                   <NavLink href="/projection">Projection</NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink href="/signup">Sign up</NavLink>
+                  <SignUpForm />
                 </NavItem>
                 <NavItem>
                   <NavLink href="/login">Login</NavLink>
+                </NavItem>
+                <NavItem>
+                  <Logout />
                 </NavItem>
               </Nav>
             </Collapse>

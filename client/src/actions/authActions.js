@@ -5,8 +5,8 @@ import {
   USER_LOADING,
   USER_LOADED,
   LOGIN_SUCCESSFUL,
-  REGISTER_SUCCESSFUL,
-  REGISTER_FAILED,
+  SIGNUP_SUCCESSFUL,
+  SIGNUP_FAILED,
   LOGIN_FAILED,
   LOGOUT_SUCCESSFUL,
 } from "../actions/types";
@@ -32,4 +32,22 @@ export const tokenConfig = (getState) => {
     config.headers["x-auth-token"] = token;
   }
   return config;
+};
+
+export const signupUser = ({ firstname, lastname, email, password }) => (
+  dispatch
+) => {
+  const config = { headers: { "Content-Type": "application/json" } };
+
+  const body = JSON.stringify({ firstname, lastname, email, password });
+
+  axios
+    .post("/api/users", body, config)
+    .then((res) => dispatch({ type: SIGNUP_SUCCESSFUL, payload: res.data }))
+    .catch((err) => {
+      dispatch(
+        showAllErr(err.response.data, err.response.status, "SIGNUP_FAILED")
+      );
+      dispatch({ type: SIGNUP_FAILED });
+    });
 };

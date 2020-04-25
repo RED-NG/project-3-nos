@@ -4,9 +4,8 @@ const jwtoken = require("jsonwebtoken");
 function auth(req, res, next) {
   const checkToken = req.header("x-auth-token");
 
-  if (!checkToken) {
+  if (!checkToken)
     return res.status(401).json({ msg: "You are not authorized for access." });
-  }
 
   try {
     const verifiedToken = jwtoken.verify(checkToken, config.get("jwtSecret"));
