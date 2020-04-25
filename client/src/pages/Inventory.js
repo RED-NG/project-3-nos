@@ -11,6 +11,7 @@ import PropTypes from "prop-types";
 import AddForm from "../components/addItem";
 import AddDay from "../components/addDay";
 import "./Inventory.css";
+import DisplayTotal from "../components/displayTotalRow";
 
 class Inventory extends Component {
   componentDidMount() {
@@ -91,15 +92,19 @@ class Inventory extends Component {
               <th>Date</th>
               <th>Product name</th>
               <th>Units sold</th>
+              <th>Profit</th>
               <th>Delete</th>
             </tr>
           </thead>
           <tbody>
-            {days.map(({ _id, name, sold, date }) => (
+            {days.map(({ _id, name, sold, date, profit }) => (
               <tr key={_id}>
-                <td className="float-center">{date}</td>
+                <td className="float-center">
+                  {new Date(date).toLocaleDateString()}
+                </td>
                 <td className="float-center">{name}</td>
                 <td className="float-center">{sold}</td>
+                <td className="float-center">{profit}</td>
                 <td>
                   <Button
                     className="removeItemBtn float-center"
@@ -114,6 +119,7 @@ class Inventory extends Component {
             ))}
           </tbody>
         </Table>
+        <DisplayTotal />
       </Container>
     );
   }

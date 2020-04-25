@@ -18,6 +18,7 @@ class AddDay extends Component {
     name: "",
     sold: 0,
     date: "",
+    profit: 0,
   };
 
   toggle = () => {
@@ -37,6 +38,7 @@ class AddDay extends Component {
       name: this.state.name,
       sold: this.state.sold,
       date: this.state.date,
+      profit: this.state.profit,
     };
 
     console.log(`created Item on submit`, createdDay);
@@ -84,14 +86,14 @@ class AddDay extends Component {
                   onChange={this.onChange}
                   className="mb-1"
                 />
-                {/* <Input
+                <Input
                   type="text"
-                  name="date"
-                  id="date"
-                  placeholder="Enter today's date"
+                  name="profit"
+                  id="profit"
+                  placeholder="Enter the amount earned from this sale in dollars"
                   onChange={this.onChange}
                   className="mb-1"
-                ></Input> */}
+                ></Input>
                 <Button color="danger" block>
                   Submit day
                 </Button>
