@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { userLoad } from "./actions/authActions";
 import "./App.css";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import Home from "./pages/Home";
@@ -14,6 +15,9 @@ import Projection from "./pages/Projection";
 // import Footer from "./components/Footer";
 
 class App extends Component {
+  componentDidMount() {
+    store.dispatch(userLoad());
+  }
   render() {
     return (
       <Provider store={store}>
