@@ -1,6 +1,6 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
-import { NavLink } from "react-strap";
+import { NavLink } from "reactstrap";
 import { connect } from "react-redux";
 import { logout } from "../../actions/authActions";
 

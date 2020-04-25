@@ -51,3 +51,7 @@ export const signupUser = ({ firstname, lastname, email, password }) => (
       dispatch({ type: SIGNUP_FAILED });
     });
 };
+
+export const logout = () => {
+  return { type: LOGOUT_SUCCESSFUL };
+};
