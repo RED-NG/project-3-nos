@@ -28,7 +28,7 @@ class MasterTable extends Component {
           <tr>
             <th>Product Name</th>
             <th>Current Stock Count</th>
-            <th>Total Profits</th>
+            <th>Threshold Count</th>
             <th>Delete item</th>
           </tr>
         </thead>

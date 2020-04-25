@@ -90,7 +90,7 @@ class AddDay extends Component {
           Record a sale
         </Button>
         <Button
-          color="dark"
+          color="danger"
           onClick={() => this.showModal(this.purchaseModal)}
           className="mb-1 ml-3"
         >

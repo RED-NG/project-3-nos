@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Container, Table } from "reactstrap";
+import { Table } from "reactstrap";
 import { connect } from "react-redux";
 
 class DisplayTotal extends Component {
